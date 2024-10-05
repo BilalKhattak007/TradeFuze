@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TradeFuze{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-2xl font-bold text-gray-900">
+                <a href="/" class="flex items-center">
+                    <span class="text-black">Trade</span>
+                    <span class="text-blue-500">Fuze</span>
+                </a>
+            </div>
+
+            <!-- Navbar Links -->
+            <div class="space-x-8 text-sm">
+                <a href="{% url 'home' %}" class="text-gray-500 font-semibold text-black px-4 py-2 rounded-lg transition duration-200 ease-in-out hover:text-blue-500 hover:bg-gray-100">Home</a>
+                <a href="{% url 'trades' %}" class="text-gray-500 font-semibold text-black px-4 py-2 rounded-lg transition duration-200 ease-in-out hover:text-blue-500 hover:bg-gray-100">Trades</a>
+                <a href="{% url 'addTrade' %}" class="text-gray-500 font-semibold text-black px-4 py-2 rounded-lg transition duration-200 ease-in-out hover:text-blue-500 hover:bg-gray-100">Add Trades</a>
+                <a href="{% url 'monthlyCal' %}" class="text-gray-500 font-semibold text-black px-4 py-2 rounded-lg transition duration-200 ease-in-out hover:text-blue-500 hover:bg-gray-100">Month</a>
+                <a href="{% url 'rules' %}" class="text-gray-500 font-semibold text-black px-4 py-2 rounded-lg transition duration-200 ease-in-out hover:text-blue-500 hover:bg-gray-100">Rules</a>
+                <a href="{% url 'wallet' %}" class="text-gray-500 font-semibold text-black px-4 py-2 rounded-lg transition duration-200 ease-in-out hover:text-blue-500 hover:bg-gray-100">Wallet</a>
+            </div>
+
+            <!-- Logout Button -->
+            <div>
+                <a href="{% url 'logout' %}" class="bg-red-500 text-white font-semibold px-4 py-2 rounded-lg transition duration-200 ease-in-out hover:bg-red-600">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

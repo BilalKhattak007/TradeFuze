@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}addTrade - TradeFuze{% endblock %}
+
+{% block content %}
+<!-- Form Section -->
+<div class="mt-2 bg-blue-50 max-w-3xl text-sm mx-auto p-4 rounded-lg shadow-md">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <!-- Grid layout for two columns -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Left Column -->
+
+            <!-- Trade Date -->
+            <div class="mb-1">
+                <label for="trade_date" class="block text-sm font-semibold text-gray-700">Trade Date</label>
+                <input type="date" name="trade_date" id="trade_date" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+            </div>
+
+            <!-- Trade Type -->
+            <div class="mb-1">
+                <label for="trade_type" class="block text-sm font-semibold text-gray-700">Trade Type</label>
+                <select name="trade_type" id="trade_type" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                    <option value="buy">Buy</option>
+                    <option value="sell">Sell</option>
+                </select>
+            </div>
+
+            <!-- Entry Price -->
+            <div class="mb-1">
+                <label for="entry_price" class="block text-sm font-semibold text-gray-700">Entry Price</label>
+                <input type="number" step="0.01" name="entry_price" id="entry_price" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" placeholder="Enter entry price" required>
+            </div>
+
+            <!-- Exit Price -->
+            <div class="mb-1">
+                <label for="exit_price" class="block text-sm font-semibold text-gray-700">Exit Price</label>
+                <input type="number" step="0.01" name="exit_price" id="exit_price" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" placeholder="Enter exit price" required>
+            </div>
+
+            <!-- Right Column -->
+
+            <!-- Stop-Loss -->
+            <div class="mb-1">
+                <label for="stop_loss" class="block text-sm font-semibold text-gray-700">Stop-Loss</label>
+                <input type="number" step="0.01" name="stop_loss" id="stop_loss" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" placeholder="Enter stop-loss" required>
+            </div>
+
+            <!-- Leverage Used -->
+            <div class="mb-1">
+                <label for="leverage_used" class="block text-sm font-semibold text-gray-700">Leverage Used</label>
+                <input type="number" step="0.01" name="leverage_used" id="leverage_used" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" placeholder="Enter leverage used" required>
+            </div>
+
+            <!-- Profit or Loss -->
+            <div class="mb-1">
+                <label for="profit_or_loss" class="block text-sm font-semibold text-gray-700">Profit or Loss</label>
+                <input type="number" step="0.01" name="profit_or_loss" id="profit_or_loss" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" placeholder="Enter profit or loss amount" required>
+            </div>
+
+            <!-- Winning Trade Checkbox -->
+            <div class="mb-1 flex items-center">
+                <input type="checkbox" name="winning_trade" id="winning_trade" class="mr-2">
+                <label for="winning_trade" class="block text-sm font-semibold text-gray-700">Winning Trade</label>
+            </div>
+
+            <!-- Reasoning Behind Taking the Trade (Full Width) -->
+            <div class="md:col-span-2 mb-2">
+                <label for="reason" class="block text-sm font-semibold text-gray-700">Reason Behind Taking the Trade</label>
+                <textarea name="reason" id="reason" rows="3" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500" placeholder="Explain your reasoning..." required></textarea>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-1 flex justify-center">
+            <button type="submit" class="bg-[#00416a] text-white px-4 py-2 rounded-md shadow hover:bg-[#002395]">
+                Add Trade
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

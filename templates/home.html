@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - TradeFuze{% endblock %}
+
+{% block content %}
+<div class="mt-6 flex flex-col">
+    <!-- Hello Text -->
+    <div class="ml-8 flex items-center space-x-2">
+        <span class="text-black text-lg font-bold">Hello,</span>
+        <span class="text-purple-500 text-lg font-bold">EZi0!</span>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="mt-8 grid grid-cols-2 lg:grid-cols-5 gap-4 ml-8">
+        <!-- Total Balance Box -->
+        <div class="bg-gray-100 p-2 rounded-lg shadow-md w-40">
+            <h2 class="text-gray-500 text-sm font-semibold">Total Balance</h2>
+            <p class="text-blue-500 text-lg mt-2 font-bold">${{ current_balance }}</p>
+        </div>
+
+        <!-- Total Trades Box -->
+        <div class="bg-gray-100 p-2 rounded-lg shadow-md w-40">
+            <h2 class="text-gray-500 text-sm font-semibold">Total Trades</h2>
+            <p class="text-yellow-500 text-lg mt-2 font-bold">{{ total_trades }}</p>
+        </div>
+
+        <!-- Wins Box -->
+        <div class="bg-gray-100 p-2 rounded-lg shadow-md w-40">
+            <h2 class="text-gray-500 text-sm font-semibold">Wins</h2>
+            <p class="text-green-500 text-lg mt-2 font-bold">{{ winning_trades }}</p>
+        </div>
+
+        <!-- Losses Box -->
+        <div class="bg-gray-100 p-2 rounded-lg shadow-md w-40">
+            <h2 class="text-gray-500 text-sm font-semibold">Losses</h2>
+            <p class="text-red-500 text-lg mt-2 font-bold">{{ losing_trades }}</p>
+        </div>
+
+        <!-- Win/Loss Ratio Box -->
+        <div class="bg-gray-100 p-2 rounded-lg shadow-md w-40">
+            <h2 class="text-gray-500 text-sm font-semibold">Win/Loss Ratio</h2>
+            <p class="text-indigo-500 text-lg mt-2 font-bold">{{ win_loss_ratio|floatformat:2 }}</p>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="mt-10 flex justify-between ml-8 gap-4">
+        <!-- Pie Chart -->
+        <div class="bg-gray-100 py-2 pl-2 pr-4 rounded-lg shadow-md w-1/2">
+            <h2 class="text-black text-sm font-bold">Performance Distribution</h2>
+            <div class="mt-2 h-64">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="bg-gray-100 p-2 rounded-lg shadow-md w-1/2">
+            <h2 class="text-black text-sm font-bold">Monthly Performance</h2>
+            <div class="mt-2 h-64">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pie Chart: Performance Distribution
+    var pieCtx = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+            labels: {{ pie_labels|safe }},
+            datasets: [{
+                data: {{ pie_values|safe }},
+                backgroundColor: {{ pie_colors|safe }},
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+
+    // Bar Chart: Monthly Performance
+    var barCtx = document.getElementById('barChart').getContext('2d');
+    var barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ bar_labels|safe }},
+            datasets: [{
+                label: 'Profit/Loss',
+                data: {{ bar_values|safe }},
+                backgroundColor: {{ bar_colors|safe }},
+                barThickness: 30,
+                maxBarThickness: 40,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true  // Bars will go negative for losses
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

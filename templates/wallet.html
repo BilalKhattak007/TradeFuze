@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Wallet - TradeFuze{% endblock %}
+
+{% block content %}
+<div class="mt-8 flex justify-center">
+    <!-- Heading -->
+    <h1 class="text-2xl font-semibold text-gray-900">Wallet</h1>
+</div>
+
+<!-- Wallet Sections -->
+<div class="mt-3 max-w-4xl mx-auto grid grid-cols-1 gap-6 p-6">
+    <!-- Starting Balance and Current Balance Section -->
+    <div class="bg-blue-50 p-6 rounded-lg shadow-md flex justify-between">
+        <!-- Starting Balance -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-900">Starting Balance</h2>
+            <p class="mt-2 text-lg font-bold text-blue-600">${{ wallet.starting_balance }}</p> <!-- Dynamic starting balance -->
+            <p class="text-xs text-gray-500 mt-1">This amount was set at the start of the app and is locked.</p>
+        </div>
+        <!-- Current Balance -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-900">Current Balance</h2>
+            <p class="mt-2 text-lg font-bold text-orange-600">${{ wallet.current_balance }}</p> <!-- Dynamic current balance -->
+            <p class="text-xs text-gray-500 mt-1">This is your current available balance.</p>
+        </div>
+    </div>
+
+    <!-- Deposit Amount Section -->
+    <form method="POST">
+        {% csrf_token %}
+        <div class="bg-green-50 p-6 rounded-lg shadow-md">
+            <h2 class="text-sm font-semibold text-gray-900">Deposit Amount</h2>
+            <p class="text-xs text-gray-500">Add money to your wallet.</p>
+            <div class="mt-4 flex items-center">
+                <input type="number" name="deposit_amount" class="w-1/2 p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:border-green-500" placeholder="Enter amount" required>
+                <button type="submit" name="deposit" class="ml-4 bg-green-500 text-white px-4 py-2 rounded-md text-sm shadow hover:bg-green-600">Deposit</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Withdraw Amount Section -->
+    <form method="POST">
+        {% csrf_token %}
+        <div class="bg-red-50 p-6 rounded-lg shadow-md">
+            <h2 class="text-sm font-semibold text-gray-900">Withdraw Amount</h2>
+            <p class="text-xs text-gray-500">Withdraw money from your wallet.</p>
+            <div class="mt-4 flex items-center">
+                <input type="number" name="withdraw_amount" class="w-1/2 p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:border-red-500" placeholder="Enter amount" required>
+                <button type="submit" name="withdraw" class="ml-4 bg-red-500 text-white px-4 py-2 rounded-md text-sm shadow hover:bg-red-600">Withdraw</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
